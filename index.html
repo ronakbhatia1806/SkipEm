@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkipEm - Bunk Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SkipEm</h1>
+            <p>"Plan your bunks before they plan you."</p>
+        </header>
+        <main>
+            <section class="config-section">
+                <h2>Configuration</h2>
+                <div class="form-grid">
+                    <div>
+                        <label for="attendance-criterion">Attendance Criterion (%)</label>
+                        <input type="number" id="attendance-criterion" value="75">
+                        <p class="error-message" id="attendance-criterion-error"></p>
+                    </div>
+                    <div>
+                        <label for="working-days">Working Days per Week</label>
+                        <input type="number" id="working-days" value="5">
+                        <p class="error-message" id="working-days-error"></p>
+                    </div>
+                    <div>
+                        <label id="duration-label" for="duration-input">Semester Duration (weeks)</label>
+                        <input type="number" id="duration-input" value="16">
+                        <p class="error-message" id="duration-input-error"></p>
+                    </div>
+                </div>
+                <div class="toggle-switch">
+                    <label>Calculation Mode:</label>
+                    <div class="toggle-buttons">
+                        <button class="toggle-btn active" data-mode="weeks">Weeks</button>
+                        <button class="toggle-btn" data-mode="days">Days</button>
+                        <button class="toggle-btn" data-mode="months">Months</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="subjects-section">
+                <h2>Subjects</h2>
+                <form id="add-subject-form">
+                    <div>
+                        <label for="subject-name">Subject Name</label>
+                        <input type="text" id="subject-name" placeholder="e.g., Advanced Calculus" required>
+                        <p class="error-message" id="subject-name-error"></p>
+                    </div>
+                    <div>
+                        <label for="lectures-per-week">Lectures per Week</label>
+                        <input type="number" id="lectures-per-week" placeholder="e.g., 4" required>
+                        <p class="error-message" id="lectures-per-week-error"></p>
+                    </div>
+                    <button type="submit">Add Subject</button>
+                </form>
+            </section>
+
+            <section class="results-section">
+                <h2>
+                    Results
+                    <div class="tooltip">
+                        <span style="font-size: 1.2rem; color: var(--secondary-text-color);">ⓘ</span>
+                        <span class="tooltiptext">Calculations are based on the provided configuration. Bunks and Weekly Skip Limits are rounded down.</span>
+                    </div>
+                </h2>
+                <div class="table-wrapper">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Total Lectures</th>
+                                <th>Min. Required</th>
+                                <th>Max Bunks</th>
+                                <th>Weekly Skip Limit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                        <tfoot>
+                            <tr id="empty-state-row">
+                                <td colspan="6">Add subjects above to see your bunk calculations!</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button id="clear-all-btn" class="danger-btn" style="margin-top: 1rem;">Clear All Subjects</button>
+            </section>
+
+            <section id="dashboard-section" style="display: none;">
+                <h2>Attendance Weightage Overview</h2>
+                <div class="chart-container">
+                    <canvas id="weightage-chart"></canvas>
+                </div>
+                <p class="chart-info">Subjects with higher lecture counts have more weight on your overall attendance.</p>
+            </section>
+        </main>
+        <div id="toast-container"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
